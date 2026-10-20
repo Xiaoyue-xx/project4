@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#120e2c">
+  <meta name="description" content="Explore Moonlit Hollow and awaken its playful lantern keeper.">
+  <title>Moonlit Hollow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app" class="app paused" aria-label="Moonlit Hollow interactive scene">
+    <section id="start" class="start-screen" aria-labelledby="title">
+      <div class="start-card">
+        <p class="eyebrow">A pocket-sized Halloween mystery</p>
+        <h1 id="title">Moonlit<br><span>Hollow</span></h1>
+        <p class="intro">The Lantern Keeper wakes only for curious visitors. Listen closely. Tap what feels out of place.</p>
+        <label class="motion-choice">
+          <input id="calmMotion" type="checkbox">
+          <span><b>Calmer motion</b><small>Fewer flying and drifting effects</small></span>
+        </label>
+        <button id="enterButton" class="enter-button" type="button">Enter the hollow <span aria-hidden="true">→</span></button>
+        <p class="headphones">Sound on · headphones welcome</p>
+      </div>
+    </section>
+
+    <section id="scene" class="scene" aria-label="A moonlit manor, bell, graveyard, and pumpkin patch" aria-hidden="true">
+      <div class="sky" aria-hidden="true">
+        <div class="stars"></div>
+        <div class="moon"><span></span></div>
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="bat bat-one">⌁</div>
+        <div class="bat bat-two">⌁</div>
+        <div class="bat bat-three">⌁</div>
+      </div>
+
+      <header class="scene-header">
+        <div><p>Tonight’s mystery</p><h2>Wake the keeper</h2></div>
+        <button id="pauseButton" class="pause-button" type="button" aria-pressed="false" aria-label="Pause experience">
+          <span class="pause-icon" aria-hidden="true">Ⅱ</span><span class="pause-label">Pause</span>
+        </button>
+      </header>
+
+      <div class="hills" aria-hidden="true"></div>
+
+      <div class="manor" aria-hidden="true">
+        <div class="chimney"></div><div class="roof"></div>
+        <div class="tower"><div class="tower-roof"></div><div class="attic-window window"></div></div>
+        <div class="house-body">
+          <div class="window left-window"></div><div class="window right-window"></div>
+          <div class="door"><i></i></div>
+        </div>
+      </div>
+
+      <button class="hotspot bell-hotspot" data-trigger="bell" type="button" aria-label="Old bell: first clue">
+        <span class="bell" aria-hidden="true"><i></i></span><span class="object-label">Old bell</span>
+      </button>
+
+      <button class="hotspot window-hotspot" data-trigger="window" type="button" aria-label="Blue attic window: second clue">
+        <span class="window-glow" aria-hidden="true"></span><span class="object-label">Blue window</span>
+      </button>
+
+      <div class="graveyard" aria-hidden="true">
+        <div class="grave grave-a">RIP</div><div class="grave grave-b">✦</div><div class="grave grave-c">RIP</div>
+        <div class="fence"></div>
+      </div>
+
+      <div class="patch" aria-hidden="true">
+        <div class="pumpkin p-small"><i></i></div><div class="pumpkin p-back"><i></i></div>
+      </div>
+      <button class="hotspot pumpkin-hotspot" data-trigger="pumpkin" type="button" aria-label="Striped pumpkin: final clue">
+        <span class="pumpkin hero-pumpkin" aria-hidden="true"><i></i><b class="face">⌃</b></span><span class="object-label">Striped pumpkin</span>
+      </button>
+
+      <div class="fog fog-a" aria-hidden="true"></div><div class="fog fog-b" aria-hidden="true"></div>
+      <div class="fireflies" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div id="keeper" class="keeper" aria-hidden="true"><div class="keeper-head">⌃</div><div class="keeper-body"></div><div class="keeper-lantern">✦</div></div>
+      <div id="sparkBurst" class="spark-burst" aria-hidden="true"></div>
+
+      <aside class="clue-panel" aria-live="polite" aria-atomic="true">
+        <div class="progress" aria-label="Mystery progress"><i></i><i></i><i></i></div>
+        <p id="hintText">The hollow is listening…</p>
+      </aside>
+
+      <div id="storyCaption" class="story-caption" role="status" aria-live="polite"></div>
+      <div id="pausedCurtain" class="paused-curtain" aria-hidden="true"><span>Moonlight paused</span></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
