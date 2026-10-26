@@ -25,7 +25,8 @@
 - [ ] Conduct and document peer playtests; capture the requested evidence.
 - [ ] Apply and record revisions based on real peer observations.
 - [ ] Verify the final app on a physical phone and record the result.
-- [ ] Publish the app and record its public URL.
+- [x] Upload the project to the public GitHub repository.
+- [ ] Enable website hosting and record the working public app URL.
 - [x] Generate `git-log.txt` from the current repository history.
 - [ ] Refresh `git-log.txt` after committing the final work, then create the
   repository ZIP and verify its contents.

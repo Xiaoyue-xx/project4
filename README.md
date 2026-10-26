@@ -33,6 +33,10 @@ reduced-motion setting to minimize ambient animation.
 - `playtest-notes.md`, `debrief.md`: peer testing and final reflection forms.
 - `.openai/hosting.json`: static hosting configuration.
 
+## Repository
+
+Public GitHub repository: <https://github.com/Xiaoyue-xx/project4>
+
 ## Credits
 
 - Concept, writing, original SVG scene, interaction, animation, and synthesized
@@ -52,6 +56,7 @@ Before making a repository ZIP, refresh the tracked Git history listing:
 git --no-pager log --oneline --decorate --all > git-log.txt
 ```
 
-Include `git-log.txt` in the ZIP along with the project files. The deployed app
-URL and repository URL should be added to the submission materials after
-publishing; they are not available in this local checkout.
+Include `git-log.txt` in the ZIP along with the project files. The repository
+is public, but a hosted app URL is not available yet. Enable GitHub Pages for
+this repository or publish `dist/` with the configured hosting provider, then
+add the working app URL to the submission materials.

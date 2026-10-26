@@ -30,6 +30,6 @@ any known limitations:
 ## Links and submission materials
 
 - Completed app URL:
-- GitHub repository URL:
+- GitHub repository URL: https://github.com/Xiaoyue-xx/project4
 - Repository ZIP filename:
 - Git history file included:
