@@ -1,4 +1,5 @@
-57fc7cc (HEAD -> main, origin/main) Complete Project 4 Phase 2
+a06ce40 (HEAD -> main, origin/main) Add repository link and refresh submission log
+57fc7cc Complete Project 4 Phase 2
 d6afa7a Agent host session fbd9eaa1-f54b-487d-9134-f4aa64a40f66 - turn 3
 855e857 Agent host session fbd9eaa1-f54b-487d-9134-f4aa64a40f66 - turn 3 start
 f40307c Agent host session fbd9eaa1-f54b-487d-9134-f4aa64a40f66 - turn 2

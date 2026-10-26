@@ -33,6 +33,11 @@ reduced-motion setting to minimize ambient animation.
 - `playtest-notes.md`, `debrief.md`: peer testing and final reflection forms.
 - `.openai/hosting.json`: static hosting configuration.
 
+## Online
+
+GitHub Pages deploys the static app from `dist/` on pushes to `main`:
+<https://xiaoyue-xx.github.io/project4/>
+
 ## Repository
 
 Public GitHub repository: <https://github.com/Xiaoyue-xx/project4>
@@ -56,7 +61,6 @@ Before making a repository ZIP, refresh the tracked Git history listing:
 git --no-pager log --oneline --decorate --all > git-log.txt
 ```
 
-Include `git-log.txt` in the ZIP along with the project files. The repository
-is public, but a hosted app URL is not available yet. Enable GitHub Pages for
-this repository or publish `dist/` with the configured hosting provider, then
-add the working app URL to the submission materials.
+Include `git-log.txt` in the ZIP along with the project files. The Pages
+workflow enables GitHub Pages and deploys `dist/` automatically. Check the
+Actions tab for the first deployment result before submitting the app URL.

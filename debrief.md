@@ -29,7 +29,8 @@ any known limitations:
 
 ## Links and submission materials
 
-- Completed app URL:
+- Completed app URL: https://xiaoyue-xx.github.io/project4/ (verify after the
+  first GitHub Pages deployment)
 - GitHub repository URL: https://github.com/Xiaoyue-xx/project4
 - Repository ZIP filename:
 - Git history file included:

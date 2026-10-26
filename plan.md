@@ -26,10 +26,10 @@
 - [ ] Apply and record revisions based on real peer observations.
 - [ ] Verify the final app on a physical phone and record the result.
 - [x] Upload the project to the public GitHub repository.
-- [ ] Enable website hosting and record the working public app URL.
+- [x] Add a GitHub Pages workflow to publish the static `dist/` site.
+- [ ] Verify the first Pages deployment and record the working public app URL.
 - [x] Generate `git-log.txt` from the current repository history.
-- [ ] Refresh `git-log.txt` after committing the final work, then create the
-  repository ZIP and verify its contents.
+- [x] Refresh `git-log.txt`, create the repository ZIP, and verify its contents.
 - [ ] Complete the debrief from the actual playtest and final verification.
 
 ## Playtest prompts
