@@ -72,7 +72,7 @@ h1 span { color: #e8bd88; }
 .pause-icon { color: var(--amber); font-size: 15px; font-weight: 700; }
 .status, .clue, .story-card, .progress, .sound-note { position: absolute; z-index: 3; left: 50%; transform: translateX(-50%); }
 .status {
-  top: 44.3%;
+  top: 21%;
   width: max-content;
   max-width: calc(100% - 46px);
   padding: 7px 13px;
@@ -82,9 +82,10 @@ h1 span { color: #e8bd88; }
   background: #161d2bbd;
   font-size: 11px;
   text-align: center;
+  pointer-events: none;
 }
 .clue {
-  bottom: calc(21% + 74px);
+  top: 26%;
   width: calc(100% - 42px);
   min-height: 44px;
   padding: 10px 12px;
@@ -94,9 +95,10 @@ h1 span { color: #e8bd88; }
   font-size: 12px;
   line-height: 1.45;
   text-shadow: 0 1px 5px #111;
+  pointer-events: none;
 }
 .story-card {
-  bottom: calc(21% + 73px);
+  top: 26%;
   width: calc(100% - 42px);
   min-height: 80px;
   padding: 13px 16px;
@@ -108,7 +110,7 @@ h1 span { color: #e8bd88; }
 .story-card p { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 16px; line-height: 1.35; }
 .story-kicker { display: block; margin-bottom: 5px; font-size: 9px; }
 .progress {
-  bottom: calc(21% + 18px);
+  bottom: 7%;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -122,6 +124,23 @@ h1 span { color: #e8bd88; }
 .progress-dot { width: 7px; height: 7px; border: 1px solid #d5c4a0; border-radius: 50%; }
 .progress-dot.found { border-color: #f0bd76; background: #f0bd76; box-shadow: 0 0 9px #f0bd76; }
 .progress-label { margin-left: 3px; }
+.choose-tale-button {
+  position: absolute;
+  z-index: 4;
+  bottom: 13%;
+  left: 50%;
+  min-height: 42px;
+  padding: 0 14px;
+  transform: translateX(-50%);
+  border: 1px solid #dfc99b99;
+  border-radius: 22px;
+  color: var(--cream);
+  background: #171f2be8;
+  font-size: 11px;
+  cursor: pointer;
+}
+.choose-tale-button:disabled { opacity: .55; cursor: default; }
+.choose-tale-button:focus-visible { outline: 3px solid #f4d69e; outline-offset: 3px; }
 .sound-note {
   bottom: max(8px, env(safe-area-inset-bottom));
   color: #d0c8ba9c;
@@ -129,6 +148,7 @@ h1 span { color: #e8bd88; }
   white-space: nowrap;
 }
 .hotspot { cursor: pointer; outline: none; }
+.app.paused .hotspot, .app.story-playing .hotspot { pointer-events: none; cursor: default; }
 .target-halo { fill: #efd29b; opacity: 0; transition: opacity .2s ease; }
 .hotspot:hover .target-halo, .hotspot:focus .target-halo { opacity: .18; }
 .hotspot.found .target-halo { opacity: .24; }
@@ -141,8 +161,16 @@ h1 span { color: #e8bd88; }
 .leaves path:nth-child(even) { animation-delay: -4s; }
 .stars circle:nth-child(odd) { animation: twinkle 3s ease-in-out infinite alternate; }
 .story-vision { opacity: 0; transform-origin: 195px 447px; pointer-events: none; }
-.story-playing .story-vision { animation: apparition 7.5s ease-in-out both; }
-.story-playing .vision-aura { animation: aura-pulse 1.5s ease-in-out infinite alternate; filter: url(#big-glow); opacity: .45; }
+.story-playing.story-keeper .story-vision--keeper,
+.story-playing.story-graveyard .story-vision--graveyard,
+.story-playing.story-moon .story-vision--moon { animation: apparition 8.5s ease-in-out both; }
+.story-playing.story-keeper .story-vision--keeper .vision-aura,
+.story-playing.story-graveyard .story-vision--graveyard .vision-aura,
+.story-playing.story-moon .story-vision--moon .vision-aura {
+  animation: aura-pulse 1.5s ease-in-out infinite alternate;
+  filter: url(#big-glow);
+  opacity: .45;
+}
 .start-screen {
   position: absolute;
   z-index: 10;
@@ -150,7 +178,7 @@ h1 span { color: #e8bd88; }
   display: grid;
   align-items: end;
   padding: 22px 18px max(27px, env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, #0e14216e 0%, #0e142129 36%, #101722ed 100%);
+  background: linear-gradient(180deg, #0e1421e8 0%, #0e1421ce 36%, #101722ed 100%);
 }
 .start-card {
   width: 100%;
@@ -166,6 +194,19 @@ h1 span { color: #e8bd88; }
 .start-card h2 { margin: 0 0 10px; font-size: clamp(28px, 8vw, 35px); line-height: 1.1; }
 .start-card h2 span { color: #e8bd88; }
 .start-card > p:not(.eyebrow):not(.start-credit) { margin: 0 0 13px; color: #d6d3d0; font-size: 13px; line-height: 1.5; }
+.tale-choice { display: grid; gap: 6px; margin: 0 0 13px; color: #e8d8b9; font-size: 12px; font-weight: 700; }
+.tale-choice select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #dfc99b66;
+  border-radius: 10px;
+  color: var(--cream);
+  background: #202a39;
+  font: inherit;
+  font-weight: 500;
+}
+.tale-choice select:focus-visible { outline: 3px solid #f4d69e; outline-offset: 3px; }
 .motion-note { min-height: 16px; color: #d8bf96 !important; font-size: 11px !important; }
 .enter-button {
   display: flex;
@@ -202,7 +243,9 @@ h1 span { color: #e8bd88; }
 .app.paused * { animation-play-state: paused !important; }
 .app.reduced-motion * { scroll-behavior: auto !important; }
 .app.reduced-motion .lantern-glow, .app.reduced-motion .fireflies circle, .app.reduced-motion .leaves path, .app.reduced-motion .stars circle:nth-child(odd), .app.reduced-motion .story-playing .story-vision, .app.reduced-motion .story-playing .vision-aura { animation: none !important; }
-.app.reduced-motion .story-playing .story-vision { opacity: 1; }
+.app.reduced-motion.story-playing.story-keeper .story-vision--keeper,
+.app.reduced-motion.story-playing.story-graveyard .story-vision--graveyard,
+.app.reduced-motion.story-playing.story-moon .story-vision--moon { opacity: 1; }
 .app.reduced-motion .hotspot.feedback { animation: none !important; }
 [hidden] { display: none !important; }
 
@@ -214,13 +257,24 @@ h1 span { color: #e8bd88; }
 @keyframes apparition { 0%, 12% { opacity: 0; transform: scale(.45) translateY(20px); } 26% { opacity: 1; transform: scale(1.08) translateY(0); } 38%, 72% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.45) translateY(-16px); } }
 @keyframes aura-pulse { from { transform: scale(.85); } to { transform: scale(1.18); } }
 @media (max-height: 680px) {
-  .hud { top: max(14px, env(safe-area-inset-top)); }
-  h1 { font-size: 29px; }
-  .intro { margin-top: 5px; font-size: 11px; }
-  .status { top: 42%; }
-  .clue, .story-card { bottom: calc(18% + 55px); }
-  .progress { bottom: calc(18% + 4px); }
-  .start-card { padding: 18px; }
+  body { overflow-x: hidden; overflow-y: auto; }
+  .app { width: min(100vw, max(46.21svh, 270px)); }
+  .hud { top: max(12px, env(safe-area-inset-top)); left: 16px; }
+  .eyebrow { margin-bottom: 4px; font-size: 8px; letter-spacing: .1em; }
+  h1 { font-size: 26px; }
+  .intro { max-width: 190px; margin-top: 4px; font-size: 10px; line-height: 1.25; }
+  .status { top: 28%; max-width: calc(100% - 24px); padding: 5px 9px; font-size: 10px; }
+  .clue, .story-card { top: 36%; width: calc(100% - 28px); }
+  .clue { padding: 8px 10px; font-size: 11px; }
+  .progress { bottom: 7%; }
+  .start-screen { padding: 12px; }
+  .start-card { padding: 12px 15px; }
+  .moon-mark { margin-bottom: 4px; }
+  .start-card h2 { margin-bottom: 8px; font-size: 25px; line-height: 1.02; }
+  .start-card > p:not(.eyebrow):not(.start-credit):not(.motion-note) { margin-bottom: 8px; font-size: 12px; line-height: 1.35; }
+  .tale-choice { margin-bottom: 8px; }
+  .motion-note { min-height: 0; font-size: 10px !important; line-height: 1.2; }
+  .start-credit { margin-top: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; }

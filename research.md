@@ -1,22 +1,33 @@
-# Research
+# Design rationale
 
 ## Audience and tone
 
-The brief calls for a spooky, playful experience appropriate for ages 10+. The design therefore uses mystery, anticipation, stylized silhouettes, warm magic, and a friendly payoff—never gore, realistic violence, or suffering.
+The experience uses a moonlit setting, quiet silhouettes, curious clues, and
+gentle magical payoffs to keep the Halloween mood friendly rather than
+frightening.
 
-## Direction explored
+## Interaction
 
-Three scene ideas were considered: a flooded ghost carnival, a rooftop witch garden, and a moonlit hilltop manor. The manor was selected because its strong silhouette creates a clear phone-scale focal point while naturally supporting several discoverable regions: bell, attic, graveyard, and pumpkin patch.
-
-## Interaction findings applied
-
-- Touch targets are at least 54 CSS pixels and also work as native keyboard buttons.
-- A short riddle changes into progressively clearer hints at roughly eight-second intervals.
-- Every trigger gives movement and synthesized audio feedback, while incorrect choices give a soft, non-punishing response.
-- Browser audio starts only after the Enter gesture to comply with mobile autoplay rules.
-- The system reduced-motion preference preselects “Calmer motion” before entry; the user can override it.
+- A single ordered sequence makes the three discoveries legible without
+  introducing separate controls for each story.
+- Story choice happens before entering the scene; the play area stays focused
+  on discovery.
+- Each correct discovery advances visible progress and updates the clue.
+- Every story resets the clues after its ending, supporting replay.
+- Original Web Audio synthesis starts after the visitor presses Enter, in
+  keeping with browser audio autoplay restrictions.
+- A reduced-motion preference minimizes ambient movement and leaves the story
+  apparition visible without animation.
 
 ## Asset and licensing decision
 
-No external visual or audio assets are used. The scene is original HTML/CSS artwork. Ambient wind, hum, bells, chimes, and story sounds are synthesized at runtime with the Web Audio API. Google Fonts are loaded from Google Fonts under their respective open font licenses; system fallbacks remain functional offline.
+The scene, story apparitions, and effects are original inline SVG and CSS.
+Audio tones and ambient sound are synthesized at runtime with the Web Audio
+API. No external images, audio recordings, or fonts are loaded.
+
+## Playtest status
+
+The design rationale is not evidence of user testing. Peer observations,
+resulting revisions, and physical-device verification must be added to
+`playtest-notes.md` after those activities occur.
 

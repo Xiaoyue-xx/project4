@@ -1,21 +1,42 @@
-# Plan
+# Project plan
 
-## Phase 1 implementation
+## Phase 1 — Core experience
 
-- [x] Establish visual direction and phone-first composition.
-- [x] Build static layered scene and accessible interface.
-- [x] Add six ambient visual effects and original looping audio.
-- [x] Add start screen, motion preference, and unified Play/Pause.
-- [x] Implement unique three-step trigger with progressive hints.
-- [x] Implement, time, reset, and replay the complete Lantern Keeper story.
-- [x] Add asset/developer credits and project documentation.
-- [ ] Verify on a physical smartphone and record peer playtest observations.
+- [x] Establish a phone-first moonlit hollow with a clear focal point.
+- [x] Build the scene from original HTML, CSS, and SVG.
+- [x] Add three semantic, keyboard-operable night-watcher targets.
+- [x] Add ordered discovery, hints, feedback, progress, and replay.
+- [x] Add an original story apparition and synthesized audio.
+- [x] Add pause/resume and reduced-motion behavior.
+- [x] Document the design and original asset credits.
+
+## Phase 2 — Playtest, complete, and polish
+
+- [x] Add two additional stories with graveyard and moon themes.
+- [x] Keep story selection on the welcome screen and reuse the existing
+  discovery interaction for all stories.
+- [x] Add an in-app return to story selection after each ending.
+- [x] Add distinct story apparitions and a quiet graveyard scene detail.
+- [x] Shorten the welcome and scene header copy after feedback that the upper
+  portion felt text-heavy.
+- [x] Update the project specification, README, and hosting output.
+- [x] Verify all three stories, replay/reset, pause/resume, reduced motion, and
+  the return-to-selection flow in a browser.
+- [ ] Conduct and document peer playtests; capture the requested evidence.
+- [ ] Apply and record revisions based on real peer observations.
+- [ ] Verify the final app on a physical phone and record the result.
+- [ ] Publish the app and record its public URL.
+- [x] Generate `git-log.txt` from the current repository history.
+- [ ] Refresh `git-log.txt` after committing the final work, then create the
+  repository ZIP and verify its contents.
+- [ ] Complete the debrief from the actual playtest and final verification.
 
 ## Playtest prompts
 
-Observe silently first. Afterward ask: What drew your eye first? What did you think the three progress marks meant? When did a hint become useful? Did the ending feel complete? Was any text, target, motion, or sound uncomfortable or unclear?
+Observe silently first, then ask:
 
-## Phase 2 candidates
-
-Revise clue pacing from playtest evidence, then add two new stories centered on the graveyard and the moon without crowding the Phase 1 interaction.
-
+- What drew your eye first?
+- What did you think the three progress marks meant?
+- When did a hint become useful?
+- Did the ending feel complete?
+- Was any text, target, motion, or sound uncomfortable or unclear?

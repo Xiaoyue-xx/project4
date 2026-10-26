@@ -11,7 +11,10 @@ const progress = document.querySelector("#progress");
 const progressDots = [...document.querySelectorAll(".progress-dot")];
 const progressLabel = document.querySelector(".progress-label");
 const storyCard = document.querySelector("#story-card");
+const storyKicker = document.querySelector("#story-kicker");
 const storyLine = document.querySelector("#story-line");
+const taleSelect = document.querySelector("#tale-select");
+const chooseTaleButton = document.querySelector("#choose-tale-button");
 const motionNote = document.querySelector("#motion-note");
 const targets = [...document.querySelectorAll(".hotspot")];
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,13 +26,37 @@ const hints = [
   "The treetops have a pair of round, moon-bright eyes.",
   "At the path's end, an old gate keeps the last piece of the story."
 ];
-const storyBeats = [
-  [0, "A tiny keeper wakes beneath the observatory's sleeping eye…"],
-  [1900, "It gathers three lost moonbeams, one for each watcher."],
-  [4200, "The hollow glows, and a little owl remembers its way home."],
-  [6500, "“Thank you,” it hoots. Then the stars tuck the secret away."]
-];
+const stories = {
+  keeper: {
+    title: "The Lantern Keeper",
+    beats: [
+      [0, "A warm light stirs beneath the observatory's sleeping eye…"],
+      [1900, "The Lantern Keeper rises, carrying three little moonbeams."],
+      [4200, "The hollow glows as the Keeper finds its way home."],
+      [6500, "“Thank you, friend.” A golden spark joins the stars."]
+    ]
+  },
+  graveyard: {
+    title: "The Graveyard Promise",
+    beats: [
+      [0, "A silver glow slips between the quiet headstones…"],
+      [1900, "A shy little ghost remembers the promise it made."],
+      [4200, "The gate swings open, and the ghost's friends gather near."],
+      [6500, "Together, they keep the hollow company until dawn."]
+    ]
+  },
+  moon: {
+    title: "The Moon's Lost Song",
+    beats: [
+      [0, "The moon hums softly, but one note is missing…"],
+      [1900, "Three night-watchers each remember a piece of its song."],
+      [4200, "Their notes rise together, brightening the pond below."],
+      [6500, "The moon sings again, and the hollow answers with stars."]
+    ]
+  }
+};
 const storyDuration = 8500;
+let activeStory = "keeper";
 let found = 0;
 let entered = false;
 let paused = false;
@@ -121,13 +148,24 @@ function setHint() {
   clue.textContent = hints[Math.min(found, hints.length - 1)];
 }
 
+function updateTargetAvailability() {
+  const enabled = entered && !paused && storyCard.hidden;
+  targets.forEach((target) => target.setAttribute("tabindex", enabled ? "0" : "-1"));
+}
+
 function triggerStory() {
+  activeStory = taleSelect.value;
+  const story = stories[activeStory];
+  chooseTaleButton.hidden = true;
+  app.classList.add(`story-${activeStory}`);
   app.classList.add("story-playing");
   storyCard.hidden = false;
+  storyKicker.textContent = story.title;
+  updateTargetAvailability();
   clue.hidden = true;
   storyElapsed = 0;
   storyStartedAt = performance.now();
-  storyLine.textContent = storyBeats[0][1];
+  storyLine.textContent = story.beats[0][1];
   playTone(523.25, 0.7, "sine", 0.1);
   playTone(659.25, 1.1, "sine", 0.06);
   storyFrame = requestAnimationFrame(updateStory);
@@ -136,7 +174,7 @@ function triggerStory() {
 function updateStory(now) {
   if (!entered || paused) return;
   storyElapsed = now - storyStartedAt;
-  const beat = [...storyBeats].reverse().find(([time]) => storyElapsed >= time);
+  const beat = [...stories[activeStory].beats].reverse().find(([time]) => storyElapsed >= time);
   if (beat && storyLine.textContent !== beat[1]) {
     storyLine.textContent = beat[1];
     if (storyElapsed > 0) playTone(storyElapsed > 4000 ? 784 : 659.25, 0.5, "sine", 0.045);
@@ -151,9 +189,15 @@ function updateStory(now) {
 function finishStory() {
   cancelAnimationFrame(storyFrame);
   app.classList.remove("story-playing");
+  app.classList.remove(`story-${activeStory}`);
   storyCard.hidden = true;
+  chooseTaleButton.hidden = false;
   clue.hidden = false;
-  status.textContent = "The hollow settles. The little tale is yours to replay.";
+  found = 0;
+  targets.forEach((target) => target.classList.remove("found"));
+  updateTargetAvailability();
+  updateProgress();
+  status.textContent = "The hollow settles. Find the watchers again to hear the tale.";
   setHint();
   storyElapsed = 0;
 }
@@ -192,22 +236,38 @@ function enterScene() {
   if (entered) return;
   entered = true;
   startScreen.hidden = true;
+  chooseTaleButton.hidden = true;
   pauseButton.disabled = false;
+  updateTargetAvailability();
   status.textContent = motionPreference.matches
     ? "A stiller kind of magic. Find the hollow's three watchers."
     : "The moon is up. The hollow is listening.";
   startAudio();
+  if (audioContext?.state === "suspended") audioContext.resume();
+}
+
+function chooseAnotherTale() {
+  if (!entered || paused || !storyCard.hidden) return;
+  entered = false;
+  startScreen.hidden = false;
+  chooseTaleButton.hidden = true;
+  pauseButton.disabled = true;
+  if (audioContext?.state === "running") audioContext.suspend();
+  updateTargetAvailability();
+  enterButton.focus();
 }
 
 function setPaused(nextPaused) {
   if (!entered || paused === nextPaused) return;
   paused = nextPaused;
   app.classList.toggle("paused", paused);
+  updateTargetAvailability();
   pauseScreen.hidden = !paused;
   pauseButton.setAttribute("aria-label", paused ? "Resume the scene" : "Pause the scene");
   pauseButton.title = paused ? "Resume scene" : "Pause scene";
   pauseButton.querySelector(".pause-label").textContent = paused ? "Resume" : "Pause";
   pauseButton.querySelector(".pause-icon").textContent = paused ? "▶" : "Ⅱ";
+  chooseTaleButton.disabled = paused;
   if (paused) {
     if (!storyCard.hidden) cancelAnimationFrame(storyFrame);
     if (audioContext?.state === "running") audioContext.suspend();
@@ -221,6 +281,7 @@ function setPaused(nextPaused) {
 }
 
 enterButton.addEventListener("click", enterScene);
+chooseTaleButton.addEventListener("click", chooseAnotherTale);
 pauseButton.addEventListener("click", () => setPaused(!paused));
 targets.forEach((target) => {
   target.addEventListener("click", () => handleTarget(target));
@@ -234,3 +295,4 @@ targets.forEach((target) => {
 motionPreference.addEventListener?.("change", updateMotionPreference);
 updateMotionPreference();
 updateProgress();
+updateTargetAvailability();

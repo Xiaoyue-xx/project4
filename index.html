@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#101724">
     <meta name="description" content="Find the night-watchers in Moonmoss Hollow and wake a little Halloween magic.">
-    <title>Moonmoss Hollow — Virtual Hallo'weenie</title>
+    <title>Moonmoss Hollow — A Halloween storybook</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <main class="app" id="app">
       <svg class="scene" id="scene" viewBox="0 0 390 844" role="img" aria-labelledby="scene-title scene-description">
         <title id="scene-title">Moonmoss Hollow</title>
-        <desc id="scene-description">A moonlit Halloween hollow with an old observatory, a pumpkin patch, a pond, a gate, and three night-watchers to discover.</desc>
+        <desc id="scene-description">A moonlit Halloween hollow with an old observatory, a graveyard, a pumpkin patch, a pond, a gate, and three night-watchers to discover.</desc>
         <defs>
           <linearGradient id="sky" x2="0" y2="1">
             <stop stop-color="#111a31"/>
@@ -109,6 +109,12 @@
           <circle cx="342" cy="637" r="1.8"/><circle cx="250" cy="592" r="1.4"/>
         </g>
 
+        <!-- Quiet graveyard beyond the pond -->
+        <g class="graveyard" fill="#303744" stroke="#8d897f" stroke-width="2">
+          <path d="M303 589v-15q0-11 10-11t10 11v15zm22 0v-10q0-9 9-9t9 9v10z"/>
+          <path d="M305 580h16m-8-7v7m23 2h12" fill="none" stroke="#c4b99d" stroke-width="1.5"/>
+        </g>
+
         <!-- Pumpkin patch -->
         <g class="pumpkins">
           <path d="M33 692q23-24 45 0t-5 32H40q-17-12-7-32m41 8q20-24 40-1t-5 30H83q-17-12-9-29" fill="#b96c48" stroke="#e19b65" stroke-width="2"/>
@@ -142,20 +148,32 @@
         </g>
 
         <!-- Story manifestation -->
-        <g class="story-vision" aria-hidden="true">
+        <g class="story-vision story-vision--keeper" aria-hidden="true">
           <circle class="vision-aura" cx="195" cy="447" r="85" fill="#f6d28d"/>
           <path d="M164 474q9-46 31-49 23 4 32 49l-10-8-8 8-14-8-14 8-8-8z" fill="#e9d6a8" stroke="#fff0c6" stroke-width="3"/>
           <circle cx="186" cy="446" r="5" fill="#273047"/><circle cx="204" cy="446" r="5" fill="#273047"/>
           <path d="M191 455h8l-4 6z" fill="#d78e62"/>
           <path d="M150 485q45 27 90 0" fill="none" stroke="#f6d28d" stroke-width="3" stroke-dasharray="5 7"/>
         </g>
+        <g class="story-vision story-vision--graveyard" aria-hidden="true">
+          <circle class="vision-aura" cx="195" cy="447" r="85" fill="#b7c8d8"/>
+          <path d="M169 481v-27q0-25 26-25t26 25v27q-12 12-26 12t-26-12z" fill="#d9e2e5" stroke="#f0f1df" stroke-width="3"/>
+          <path d="M186 454q4-5 8 0m5 0q4-5 8 0" fill="none" stroke="#354255" stroke-width="3"/>
+          <path d="M187 469q8 7 16 0" fill="none" stroke="#67788b" stroke-width="2"/>
+          <path d="M151 493v-18q0-9 9-9t9 9v18zm61 0v-18q0-9 9-9t9 9v18z" fill="#727b82" stroke="#c1c8c7" stroke-width="2"/>
+          <path d="M156 477h8m60 0h8" stroke="#e1d5b5" stroke-width="2"/>
+        </g>
+        <g class="story-vision story-vision--moon" aria-hidden="true">
+          <circle class="vision-aura" cx="195" cy="447" r="85" fill="#e6d5a2"/>
+          <path d="M201 417a35 35 0 1 0 29 55 31 31 0 0 1-29-55z" fill="#f5e8c5" stroke="#fff4d4" stroke-width="2"/>
+          <path d="m166 455 4 8 8 2-8 3-4 8-3-8-8-3 8-2zm68-23 3 6 6 2-6 2-3 6-2-6-6-2 6-2zm-44 67 2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff2c7"/>
+          <path d="M155 491q40 14 80 0" fill="none" stroke="#c9bfdd" stroke-width="3" stroke-dasharray="4 7"/>
+        </g>
         <rect class="vignette" width="390" height="844"/>
       </svg>
 
       <header class="hud">
-        <p class="eyebrow">A little night-time wandering</p>
         <h1>Moonmoss <span>Hollow</span></h1>
-        <p class="intro">The old hollow is awake. Can you find who’s keeping watch?</p>
       </header>
       <button class="pause-control" id="pause-button" type="button" aria-label="Pause the scene" title="Pause scene" disabled>
         <span aria-hidden="true" class="pause-icon">Ⅱ</span><span class="pause-label">Pause</span>
@@ -163,13 +181,14 @@
       <div class="status" id="status" role="status" aria-live="polite">The moon is up. The hollow is listening.</div>
       <div class="clue" id="clue" aria-live="polite">Somewhere, three small night-watchers keep the old promise.</div>
       <div class="story-card" id="story-card" aria-live="polite" aria-atomic="true" hidden>
-        <span class="story-kicker">A Moonmoss tale</span>
+        <span class="story-kicker" id="story-kicker">A Moonmoss tale</span>
         <p id="story-line"></p>
       </div>
       <div class="progress" id="progress" aria-label="Night-watcher clues found">
         <span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-dot"></span>
         <span class="progress-label">0 of 3 clues</span>
       </div>
+      <button class="choose-tale-button" id="choose-tale-button" type="button" hidden>Choose another tale</button>
       <p class="sound-note" id="sound-note">Original synthesized night sounds · no external assets</p>
 
       <section class="start-screen" id="start-screen" aria-labelledby="welcome-title">
@@ -177,10 +196,16 @@
           <div class="moon-mark" aria-hidden="true">☾</div>
           <p class="eyebrow">A pocket-sized Halloween tale</p>
           <h2 id="welcome-title">Welcome to<br><span>Moonmoss Hollow</span></h2>
-          <p>A sleepy observatory, a moonlit pond, and one little secret. Wander gently and see what wakes.</p>
+          <p>Find the lantern, owl, and gate to wake a tale.</p>
+          <label class="tale-choice" for="tale-select">Choose a tale
+            <select id="tale-select">
+              <option value="keeper">The Lantern Keeper</option>
+              <option value="graveyard">The Graveyard Promise</option>
+              <option value="moon">The Moon's Lost Song</option>
+            </select>
+          </label>
           <p class="motion-note" id="motion-note"></p>
           <button class="enter-button" id="enter-button" type="button">Enter the hollow <span aria-hidden="true">→</span></button>
-          <p class="start-credit">An original, independent scene · made for curious night owls ages 10+</p>
         </div>
       </section>
       <div class="pause-screen" id="pause-screen" hidden>
