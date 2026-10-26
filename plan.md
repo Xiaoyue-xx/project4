@@ -27,6 +27,8 @@
 - [ ] Verify the final app on a physical phone and record the result.
 - [x] Upload the project to the public GitHub repository.
 - [x] Add a GitHub Pages workflow to publish the static `dist/` site.
+- [ ] In repository Settings > Pages, select GitHub Actions as the deployment
+  source; the workflow token cannot create the initial Pages site.
 - [ ] Verify the first Pages deployment and record the working public app URL.
 - [x] Generate `git-log.txt` from the current repository history.
 - [x] Refresh `git-log.txt`, create the repository ZIP, and verify its contents.

@@ -35,7 +35,9 @@ reduced-motion setting to minimize ambient animation.
 
 ## Online
 
-GitHub Pages deploys the static app from `dist/` on pushes to `main`:
+After enabling GitHub Pages in repository settings and selecting GitHub Actions
+as the source, the workflow deploys the static app from `dist/` on pushes to
+`main`:
 <https://xiaoyue-xx.github.io/project4/>
 
 ## Repository
@@ -61,6 +63,7 @@ Before making a repository ZIP, refresh the tracked Git history listing:
 git --no-pager log --oneline --decorate --all > git-log.txt
 ```
 
-Include `git-log.txt` in the ZIP along with the project files. The Pages
-workflow enables GitHub Pages and deploys `dist/` automatically. Check the
-Actions tab for the first deployment result before submitting the app URL.
+Include `git-log.txt` in the ZIP along with the project files. GitHub requires
+Pages to be enabled in repository settings before the workflow can deploy.
+Check the Actions tab for the first successful deployment before submitting
+the app URL.
